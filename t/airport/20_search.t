@@ -44,8 +44,8 @@ foreach my $rh_test (@tests) {
         matching_string => $rh_test->{string},
         word => $rh_test->{is_word},
     );
-
-    if ($rh_test->{string} eq "Sydney" && $rh_test->{is_word}) {
+    
+    if ($rh_test->{string} eq "Air" && $rh_test->{is_word}) {
         say pp($rah_search_res);
     }
 

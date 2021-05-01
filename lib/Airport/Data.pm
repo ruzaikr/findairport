@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+package Airport::Data;
 
 use strict;
 use warnings;
@@ -16,27 +17,6 @@ sub parse_airports {
         push(@airports, $rh_line);
     }
     return \@airports;
-}
-
-sub get_name_matching_airports {
-    my %params = @_;
-
-    my @matching_airports;
-    foreach my $airport (@{$params{airports}}) {
-        if ($params{word}) {
-            if ($airport->{name} =~ m/\w$params{matching_string}\W/i) {
-                push(@matching_airports, $airport);
-                say pp($airport);
-            }
-        }else {
-            if ($airport->{name} =~ m/$params{matching_string}/i) {
-                push(@matching_airports, $airport);
-                say pp($airport);
-            }
-        }
-    }
-
-    return \@matching_airports;
 }
 
 1;
