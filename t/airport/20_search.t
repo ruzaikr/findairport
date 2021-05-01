@@ -60,5 +60,40 @@ foreach my $rh_test (@tests) {
         qq/a $string_word matching $rh_test->{string} gets an arrayref of $rh_test->{num_expected} elements/);
 }
 
+my @tests_latlong = (
+    {
+        lat => 1,
+        long => 1,
+        max => 0.0001,
+        num_expected => 0,
+    },
+    {
+        lat => 42.790109,
+        long => -80.738165,
+        max => 255,
+        num_expected => 5,
+    },
+    {
+        lat => 40.63989202,
+        long => -73.77893014,
+        max => 0.0001,
+        num_expected => 1,
+    },
+);
+
+foreach my $rh_test (@tests_latlong) {
+    my $rah_search_res_latlong = Airport::Search::get_latlong_matching_airports(
+        airports => $rah_airports,
+        lat => $rh_test->{lat},
+        long => $rh_test->{long},
+        max => $rh_test->{max},
+    );
+
+    my $num_matching_airports = scalar(@$rah_search_res_latlong);
+    ok($num_matching_airports == $rh_test->{num_expected},
+        qq/($rh_test->{lat}, $rh_test->{long}) within $rh_test->{max} got $num_matching_airports airports/);
+
+}
+
 done_testing;
 
